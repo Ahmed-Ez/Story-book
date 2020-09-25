@@ -39,12 +39,10 @@ router.get('/', ensureAuth, async (req, res) => {
 //Show single story
 router.get('/:id', ensureAuth, async (req, res) => {
   try {
-    let story = await (await Story.findById(req.params.id))
-      .populated('user')
-      .lean();
-
+    let story = await Story.findById(req.params.id).populate('user').lean();
+    console.log(story);
     if (!story) return res.render('error/404');
-    return res.render('stories/show', { story });
+    return res.render('stories/story', { story });
   } catch (error) {
     console.error(error);
     res.render('error/404');

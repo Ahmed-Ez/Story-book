@@ -12,7 +12,7 @@ const mongoStore = require('connect-mongo')(session);
 //routes
 const mainRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const { Mongoose } = require('mongoose');
+const storiesRouter = require('./routes/stories');
 
 //Load config
 dotenv.config({ path: './config/config.env' });
@@ -23,6 +23,9 @@ require('./config/passport')(passport);
 connectDB();
 
 const app = express();
+
+//bodyparser
+app.use(express.urlencoded({ extended: true }));
 
 //logging
 if (process.env.NODE_ENV === 'development') {
@@ -47,9 +50,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Static
 app.use(express.static(path.join(__dirname, 'public')));
+
 //Routes
 app.use('/auth', authRouter);
 app.use('/', mainRouter);
+app.use('/Stories', storiesRouter);
 
 const PORT = process.env.PORT || 5000;
 

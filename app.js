@@ -44,8 +44,8 @@ app.use(passport.session());
 //Static
 app.use(express.static(path.join(__dirname, 'public')));
 //Routes
-app.use('/', mainRouter);
 app.use('/auth', authRouter);
+app.use('/', mainRouter);
 
 const PORT = process.env.PORT || 5000;
 

@@ -91,4 +91,19 @@ router.delete('/:id', ensureAuth, async (req, res) => {
   }
 });
 
+//Show one user stories
+router.get('/user/:id', ensureAuth, async (req, res) => {
+  try {
+    let stories = await Story.find({ user: req.params.id, status: 'public' })
+      .populate('user')
+      .lean();
+
+    return res.render('stories/index', {
+      stories,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.render('error/404');
+  }
+});
 module.exports = router;

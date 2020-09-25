@@ -8,3 +8,7 @@ p {
   margin: 10px 0 !important;
   font-weight: bold;
 }
+
+.fa-small {
+  font-size: 17px !important;
+}
